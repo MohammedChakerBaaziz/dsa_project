@@ -27,8 +27,10 @@ class Item{
         void set_id(string);
         void set_unit_price(int);
         void set_Quantity(int);
+        static HashTable<Item> Items; //we need to make the hashTable works with the item class
 };
 
+// we need a constructor with values + in the constructor it directly inserts in the hashmap
 
 
 
