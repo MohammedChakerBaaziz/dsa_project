@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <queue>
+#include "QuadraticProbingUser.h"
 using namespace std;
 
 
@@ -15,7 +16,10 @@ class Item{
         int Quantity;
     
     public:
-        Item();
+        Item() {};
+        Item(string name, string id, int unitPrice, int quantity) : Name(name), Id(id), UnitPrice(unitPrice), Quantity(quantity) {
+            Items.insert(*this);
+        };
         Item(string & ,string &  ,int &,int &);        //copy constructure
         Item(string&&,string&&,int&&,int&&);    //move constructure
         ~Item();                                //destructure
@@ -29,8 +33,6 @@ class Item{
         void set_Quantity(int);
         static HashTable<Item> Items; //we need to make the hashTable works with the item class
 };
-
-// we need a constructor with values + in the constructor it directly inserts in the hashmap
 
 
 

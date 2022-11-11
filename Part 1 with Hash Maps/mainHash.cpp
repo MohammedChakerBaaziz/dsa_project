@@ -16,7 +16,5 @@ int main()
     potato.set_Quantity(2343);
     potato.set_unit_price(120);
 
-    //items hashmap
-    //setters and getters of item
     // generator of the items stock instead of adding them one by one (csv of items and read it)
 }

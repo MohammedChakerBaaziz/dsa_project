@@ -45,6 +45,10 @@ int User::command (HashTable<Item>& items)
                 myFile << name << "," << quantity << "," << item.get_Unit_price() << "," << quantity*item.get_Unit_price() << "\n";
                 totalPrice += quantity * item.get_Unit_price();
                 item.set_Quantity(item.get_quantity()-quantity);
+                if (item.get_quantity()==0)
+                {
+                    Item::Items.remove(item);
+                }
             }
             else 
             {

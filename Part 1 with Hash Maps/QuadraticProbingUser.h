@@ -6,6 +6,7 @@
 #include <functional>
 #include <string>
 #include "user.h"
+#include "item.h"
 using namespace std;
 
 int nextPrime( int n );
@@ -149,6 +150,12 @@ class HashTable
         static hash<HashedObj> hf;
         return hf( x.cardId ) % array.size( );
     }
+    size_t myhash( const Item & x ) const
+    {
+        static hash<HashedObj> hf;
+        return hf( x.Id ) % array.size( );
+    }
+
 };
 
 #endif
