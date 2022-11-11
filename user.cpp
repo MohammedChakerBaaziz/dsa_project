@@ -16,6 +16,12 @@ bool User::ismember () const
 
 int User::command (HashTable<Item>& items) 
 {
+    ofstream myFile;
+    string fileName = this->Name + ".csv";
+    myFile.open (fileName);
+    myFile << this->Name << "\n";
+    myFile << this->cardId << "\n";
+    myFile << this->homeAdress << "\n";
     int totalPrice = 0;
     char check = 'y';
     while (check != 'n')
@@ -24,27 +30,35 @@ int User::command (HashTable<Item>& items)
         string name;
         cout << "Enter the name of the item \n";
         getline(cin >> ws,name);
-        item.setname(name);
+        item.set_name(name);
         if(items.contains(item))
         {
             // maybe we should show informations of the item i.e. quantity & unit price
             int quantity =0;
             cout << "Enter the quantity you want to buy \n";
-            while (quantity <= 0)
+            do
             {
                 cin >> quantity;
-            }
-            if(item.getquantity()>=quantity)
+            }while (quantity <= 0);
+            if(item.get_quantity()>=quantity)
             {
-                // add to the file csv
-                totalPrice += quantity * item.getunitprice();
+                myFile << name << "," << quantity << "," << item.get_Unit_price() << "," << quantity*item.get_Unit_price() << "\n";
+                totalPrice += quantity * item.get_Unit_price();
+                item.set_Quantity(item.get_quantity()-quantity);
             }
-            // treat else cases (maybe he re-enter)
-            // treat the case if after the command an the quantity of element is 0
+            else 
+            {
+                cout << "The quantity the store has is less than your command \n";
+            }
+        }
+        else 
+        {
+            cout << "Item is not founded \n";
         }
         cout << "ENTER Y: ADD NEW ITEM\n"
              << "      N: FINISH COMMAND\n";
-        do {
+        do 
+        {
             cin.get(check);
         }while(check != 'n' && check != 'y' && check != 'N' && check != 'Y');
         if (!islower(check))
@@ -52,11 +66,13 @@ int User::command (HashTable<Item>& items)
             check = tolower(check);
         }
         // case if the total price is higher than what the card contains : cannot be treated because we don't have the card's system and any additional data
-        
-        // send to adress
     }
+    myFile << totalPrice << "\n";
+    myFile.close();
+    cout << "Command finsihed successfully\n"
+         << "The command will be sent to your Home address\n";
+    return totalPrice;
     // confirm command and dispaly it
-    // return the file or send to email
 }
 
 
