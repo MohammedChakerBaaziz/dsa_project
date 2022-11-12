@@ -1,0 +1,48 @@
+# depslib dependency file v1.0
+1668206806 source:c:\users\zaki soft\desktop\todaytest\bst\src\bst.cpp
+	"bst.h"
+	<iostream>
+	<set>
+
+1668207902 c:\users\zaki soft\desktop\todaytest\bst\include\bst.h
+	"item.h"
+
+1668207024 source:c:\users\zaki soft\desktop\todaytest\bst\src\item.cpp
+	"item.h"
+	<iostream>
+	<string>
+
+1668207113 c:\users\zaki soft\desktop\todaytest\bst\include\item.h
+	<iostream>
+	<string>
+	<queue>
+
+1668207980 source:c:\users\zaki soft\desktop\todaytest\bst\main.cpp
+	<iostream>
+	"bst.h"
+	<vector>
+
+1668268336 source:c:\users\zaki soft\desktop\project\code\bst\main.cpp
+	<iostream>
+	"bst.h"
+	<vector>
+
+1668268345 c:\users\zaki soft\desktop\project\code\bst\include\bst.h
+	"item.h"
+
+1668207113 c:\users\zaki soft\desktop\project\code\bst\include\item.h
+	<iostream>
+	<string>
+	<queue>
+
+1668207024 source:c:\users\zaki soft\desktop\project\code\bst\src\item.cpp
+	"item.h"
+	<iostream>
+	<string>
+
+1668269397 source:c:\users\zaki soft\desktop\project\code\bst\src\bst.cpp
+	"bst.h"
+	<iostream>
+	<set>
+	"item.h"
+
