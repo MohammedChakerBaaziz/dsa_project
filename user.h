@@ -23,6 +23,18 @@ class User {
         bool addMember(int);   
         friend class HashTable;
         static HashTable<User> Members;
+        void Set_name(string namo);
+        void set_card_id(string cardo);
+        void set_expery_month(int month);
+        void set_experyYear(int year);
+        void sethomeadress(string home);
+
+        string getname();
+        string getcardid();
+        int getexperyMonth();
+        int getexperyYear();
+        string gethomeAdress();
+
 };
 
 /* class Member

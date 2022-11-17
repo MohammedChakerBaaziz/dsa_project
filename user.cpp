@@ -9,6 +9,50 @@
 using namespace std;
 
 
+string::user get_quantity()
+{
+    return quantity;
+}
+string::user getcardid()
+{
+    return cardId;
+}
+int::user getexperyMonth()
+ {
+    return experyMonth;
+ }
+int::user getexperyYear()
+ {
+    return experyYear;
+ }
+string::user gethomeAdress()
+ {
+    return homeAdress;
+ }
+
+void::user set_card_id(string card)
+{
+    cardId=card;
+}
+void::user set_expery_month(int month)
+{
+    experyMonth=month;
+}
+void::user set_experyYear(int year)
+{
+    experyYear=year;
+}
+
+void::user set_name(string namoo)
+{
+    name=namoo;
+}
+void::user sethomeadress(string home)
+{
+    homeAdress=address;
+}
+
+
 bool User::ismember () const
 {
     return Members.contains(*this);
