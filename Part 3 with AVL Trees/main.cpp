@@ -22,8 +22,10 @@ int main()
     temp.command(avlt);
 }
 
-// rigli contructor
-
-
-//ki nda5el ay name, ygoul kayen
-// ki nda5el id correct, ygoul la
+/* missions left :
+- wait for the csv file of user & items to generalize and test the remaining functions
+- wait to fix the problem of one input is missed
+- fix the two remaining small problems in the do while loops of the command fucntion
+- use what's done here with the bst and hashmap data structures
+- comment the file to explain
+*/

@@ -31,7 +31,7 @@ int User::command (AvlTree& items)
         cout << "Enter the id of the item \n";
         cin >> id;
         item.set_id(id);
-        
+
         if(items.contains(item))
         {
            /*  item = items; */
@@ -41,6 +41,7 @@ int User::command (AvlTree& items)
             cout << "Enter the quantity you want to buy \n";
             cout << "The quantity in the store is\t" << itemInTree->element.get_quantity() << endl;
 
+// fix this while loop in case the user enters a string
             while (cin >> quantity)
                 cin >> quantity;
 
@@ -73,6 +74,8 @@ int User::command (AvlTree& items)
         cin >> ws;
         cin.get(check);
 
+
+// fix this while lopp in case user enters two characters
         while(check != 'n' && check != 'y' && check != 'N' && check != 'Y')
         {
             cout << "incorrect input, enter N or Y\n";
