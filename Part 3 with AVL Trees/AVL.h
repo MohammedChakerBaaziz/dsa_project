@@ -2,8 +2,10 @@
 #define AVL_H
 #include "item.h"
 #include "dsexceptions.h"
+#include "user.h"
 class AvlTree
 {
+    friend class User;
   public:
     AvlTree( ) : root{ nullptr }
       { }
@@ -164,6 +166,28 @@ class AvlTree
         balance( t );
     }
 
+    /*
+        * A method to get a specific node in order to be able to use it in the user::command function
+        * We don't need to check if the element is in the tree since we already checked in the condition that is before the call of this function
+    */
+
+    AvlNode* getItem(long long int id)
+    {
+        AvlNode* temp = this->root;
+        while(temp != nullptr)
+        {
+            if(temp->element.get_id()==id)
+            {
+                return temp;
+            }
+            else if(temp->element.get_id() < id)
+            {
+                temp = temp->right;
+            }
+            else
+                temp = temp->left;
+        }
+    }
     /**
      * Internal method to insert into a subtree.
      * x is the item to insert.
@@ -277,6 +301,7 @@ class AvlTree
         else
             return true;    // Match
     }
+
 /****** NONRECURSIVE VERSION*************************
     bool contains( const Item & x, AvlNode *t ) const
     {
@@ -314,7 +339,7 @@ class AvlTree
         if( t != nullptr )
         {
             printTree( t->left );
-            cout << t->element.get_id()<< " the name is "<<t->element.get_name()<< endl;
+            cout << "THE ID IS :\t" << t->element.get_id()<< "\t the name is "<<t->element.get_name()<< endl;
             printTree( t->right );
         }
     }
