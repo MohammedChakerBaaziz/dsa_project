@@ -27,10 +27,9 @@ class Item{
         void set_id(string);
         void set_unit_price(int);
         void set_Quantity(int);
+        void set_all(string,string,int,int);
         friend class Binarysearchtree;
 };
-
-
 
 
 #endif
