@@ -42,6 +42,13 @@ Item::Item(string &&name, string &&id,int && unitprice,int && quantity){
     UnitPrice=std::move(unitprice);
     Quantity=std::move(quantity);
 };
+void Item::set_all(string n,string i,int un=100,int q=0)
+{
+    set_name(n);
+    set_id(i);
+    set_unit_price(un);
+    set_Quantity(q);
+};
 Item::~Item(){
     Name=" ";
     Id=" ";
