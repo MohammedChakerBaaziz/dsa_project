@@ -11,74 +11,97 @@ void Binarysearchtree::setroot(Node* p)
     //set the root
     root=p;
 }
-Node* Binarysearchtree::getroot(){
+
+bool Binarysearchtree::isempty()
+{
+    if(root==nullptr)
+    {
+        return true ;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+Node* Binarysearchtree::getroot()
+{
     //get the root
     return root;
 }
-Node* Binarysearchtree::insertelement(Node* p,Item &obj)
+Node* Binarysearchtree::insertelement(Node*r,Item &obj)
 {
     //function to add items to the storage.
-    if(p==NULL){
-        p=new Node(obj);
-        p->left=p->right=NULL;
-    }
-    else if(obj.get_id()<p->data.get_id())
+    if(r==NULL)
     {
-            p->left=insertelement(p->left,obj);
+        Node* head= new Node(obj);
+        r=head;
+        r->data=obj;
     }
-    else{
-            p->right=insertelement(p->right,obj);
+    else if(obj.get_id()<(r->data.get_id()))
+    {
+        r->left=insertelement(r->left,obj);
     }
-    return p;
+    else
+    {
+        r->right=insertelement(r->right,obj);
+    }
+    return r;
 };
-void Binarysearchtree::in_order(Node* r)const{
+void Binarysearchtree::insertelement(Item& obj)
+{
+    root=insertelement(root,obj);
+}
+void Binarysearchtree::in_order(Node* root)
+{
     //display items
-    if(r==NULL){
+    if(root==NULL)
+    {
         return ;
     }
-    in_order(r->left);
-    std::cout<<r->data.get_id()<<std::endl;
-    in_order(r->right);
+    in_order(root->left);
+    std::cout<<root->data.get_name()<<"---"<<root->data.get_id()<<std::endl;
+    in_order(root->right);
 }
 Node* Binarysearchtree::delete_item(Node* root,Item &obj)
-	{
-		if (root== NULL) // Empty Tree
-			return NULL;
-			if(root->data.get_id()==obj.get_id())
-			{
-			    delete root;
-			}
-		else if (obj.get_id() < root->data.get_id()) // Item exists in left sub tree
-			root->left = delete_item(root->left, obj);
-		else if (obj.get_id()  > root->data.get_id()) // item exists in right sub tree
-			  root->right =delete_item(root->right, obj);
-		else
-		{
-			if (root->left == NULL && root->right == NULL) // leaf node
-				root = NULL;
-			else if (root->left != NULL && root->right == NULL) // one child on the left
-			{
-				root->data.get_id() = root->left->data.get_id();
-				delete root->left;
-				root->left = NULL;
-			}
-			else if (root->left == NULL && root->right != NULL) // one child on the right
-			{
-				root->data.get_id() = root->right->data.get_id();
-				delete root->right;
-				root->right = NULL;
-			}
-			else
-			{
-				Node* maxi_node = Findmax(root->left);
-				root->data.get_id() = maxi_node->data.get_id();
-			   root->left=	delete_item(root->left, maxi_node->data);
+{
+    if (root== NULL) // Empty Tree
+        return NULL;
+    if(root->data.get_id()==obj.get_id())
+    {
+        delete root;
+    }
+    else if (obj.get_id() < root->data.get_id()) // Item exists in left sub tree
+        root->left = delete_item(root->left, obj);
+    else if (obj.get_id()  > root->data.get_id()) // item exists in right sub tree
+        root->right =delete_item(root->right, obj);
+    else
+    {
+        if (root->left == NULL && root->right == NULL) // leaf node
+            root = NULL;
+        else if (root->left != NULL && root->right == NULL) // one child on the left
+        {
+            root->data.get_id() = root->left->data.get_id();
+            delete root->left;
+            root->left = NULL;
+        }
+        else if (root->left == NULL && root->right != NULL) // one child on the right
+        {
+            root->data.get_id() = root->right->data.get_id();
+            delete root->right;
+            root->right = NULL;
+        }
+        else
+        {
+            Node* maxi_node = Findmax(root->left);
+            root->data.get_id() = maxi_node->data.get_id();
+            root->left=	delete_item(root->left, maxi_node->data);
 
-			}
+        }
 
-		}
-		return root;
-	}
+    }
+    return root;
+}
 
 
 
@@ -96,5 +119,3 @@ bool Binarysearchtree::contain(Node* root, Item& obj)const
     else
         return true;
 }
-
-
