@@ -9,12 +9,12 @@
 using namespace std;
 
 
-/* bool User::ismember () const
+bool User::ismember (HashTable<long long int>& members) const
 {
-    return Members.contains(*this);
-} */
+    return members.contains(this->cardId);
+}
 
-int User::command (AvlTree& items) 
+int User::command (AvlTree& items, HashTable<long long int>& members) 
 {
     ofstream myFile;
     string fileName = this->Name + ".csv";
@@ -39,11 +39,13 @@ int User::command (AvlTree& items)
             AvlTree::AvlNode* itemInTree = items.getItem(id);
             int quantity =0;
             cout << "Enter the quantity you want to buy \n";
-            cout << "The quantity in the store is\t" << itemInTree->element.get_quantity() << endl;
+            cout << "The quantity in the store is\t" << itemInTree->element.get_quantity() << endl
+                 << "The unit price \t" << itemInTree->element.get_Unit_price() <<endl;
 
 // fix this while loop in case the user enters a string
-            while (cin >> quantity)
+            do {
                 cin >> quantity;
+            }while(quantity < 0);
 
             if(itemInTree->element.get_quantity()>=quantity)
             {
@@ -71,16 +73,11 @@ int User::command (AvlTree& items)
              << "\nENTER Y: ADD NEW ITEM\n"
              << "      N: FINISH COMMAND\n";
 
-        cin >> ws;
-        cin.get(check);
-
-
-// fix this while lopp in case user enters two characters
-        while(check != 'n' && check != 'y' && check != 'N' && check != 'Y')
+        do
         {
-            cout << "incorrect input, enter N or Y\n";
             cin.get(check);
-        }
+        } while (check != 'n'&& check != 'N'&& check != 'y' && check != 'Y');
+        
 
         if (!islower(check))
         {
@@ -88,6 +85,11 @@ int User::command (AvlTree& items)
             check = tolower(check);
         }
         // case if the total price is higher than what the card contains : cannot be treated because we don't have the card's system and any additional data
+    }
+    if(totalPrice >= 100000)
+    {
+        bool entered = this->addMember(members, totalPrice);
+        cout << "is he entered ?\t" << entered << endl;
     }
     myFile << totalPrice << "\n";
     myFile.close();
@@ -99,15 +101,27 @@ int User::command (AvlTree& items)
 }
 
 
-/* bool User::addMember(int totalprice)
+void User::commandFile(AvlTree& items)
+{
+    ofstream myFile;
+    string fileName = this->Name + ".csv";
+    myFile.open (fileName);
+    myFile << this->Name << "\n";
+    myFile << this->cardId << "\n";
+    myFile << this->homeAdress << "\n";
+    int totalPrice = 0;
+    
+}
+
+bool User::addMember(HashTable<long long int>& members, int totalprice)
 {
     if(totalprice >= 100000)
     {
-        return Members.insert(*this);
+        return members.insert(this->cardId);
     }
     return false;
 }
- */
+
 
 // add method of dealing with the queue
 // methods of items
