@@ -38,13 +38,18 @@ Node* Binarysearchtree::insertelement(Node*r,Item &obj)
         r=head;
         r->data=obj;
     }
-    else if(obj.get_id()<(r->data.get_id()))
-    {
-        r->left=insertelement(r->left,obj);
-    }
     else
     {
-        r->right=insertelement(r->right,obj);
+        long long  int value1=std::stoi(obj.get_id());
+        long long int value2=std::stoi(r->data.get_id());
+        if(value1<value2)
+        {
+            r->left=insertelement(r->left,obj);
+        }
+        else
+        {
+            r->right=insertelement(r->right,obj);
+        }
     }
     return r;
 };
@@ -67,13 +72,13 @@ Node* Binarysearchtree::delete_item(Node* root,Item &obj)
 {
     if (root== NULL) // Empty Tree
         return NULL;
-    if(root->data.get_id()==obj.get_id())
+    if(std::stoi(root->data.get_id())==std::stoi(obj.get_id()))
     {
         delete root;
     }
-    else if (obj.get_id() < root->data.get_id()) // Item exists in left sub tree
+    else if (std::stoi(obj.get_id()) < std::stoi(root->data.get_id())) // Item exists in left sub tree
         root->left = delete_item(root->left, obj);
-    else if (obj.get_id()  > root->data.get_id()) // item exists in right sub tree
+    else if (std::stoi(obj.get_id())  > std::stoi(root->data.get_id())) // item exists in right sub tree
         root->right =delete_item(root->right, obj);
     else
     {
@@ -105,17 +110,39 @@ Node* Binarysearchtree::delete_item(Node* root,Item &obj)
 
 
 
-bool Binarysearchtree::contain(Node* root, Item& obj)const
+Node* Binarysearchtree::contain(Node* r, Item obj)
 {
-    if( root == nullptr )
-        return false;
-
-    else if( obj.get_id() < root->data.get_id() )
-        return contain( root->left,obj );
-
-    else if( root->data.get_id() < obj.get_id() )
-        return contain( root->right,obj );
-
+    if( r == nullptr )
+        return nullptr;
     else
+    {
+        long long  int value1=std::stoi(r->data.get_id());
+        long long   int value2=std::stoi(obj.get_id());
+
+        if (value1==value2)
+            return r;
+
+        else if( value2 < value1 )
+        {
+            return contain( r->left,obj );
+        }
+        else if( value1 < value2 )
+        {
+
+            return contain( r->right,obj );
+        }
+    }
+}
+bool Binarysearchtree:: searchit(Item HA)
+{
+    Node* this_node=contain(root,HA);
+
+    if(this_node==nullptr)
+    {
+        return false;
+    }
+    else
+    {
         return true;
+    }
 }
