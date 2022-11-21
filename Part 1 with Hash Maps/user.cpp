@@ -3,18 +3,18 @@
 #include <cctype>
 #include "user.h"
 #include "item.h"
-#include "QuadraticProbingUser.h"
+#include "ItemsHash.h"
 
 
 using namespace std;
 
 
-bool User::ismember () const
+bool User::ismember (HashTable<long long int>& members) const
 {
-    return Members.contains(*this);
+    return members.contains(this->cardId);
 }
 
-int User::command (HashTable<Item>& items) 
+int User::command(HashTableItems<long long int>& items, HashTable<long long int>& members) 
 {
     ofstream myFile;
     string fileName = this->Name + ".csv";
@@ -27,64 +27,87 @@ int User::command (HashTable<Item>& items)
     while (check != 'n')
     {
         Item item; //object
-        string name;
-        cout << "Enter the name of the item \n";
-        getline(cin >> ws,name);
-        item.set_name(name);
-        if(items.contains(item))
+        long long int id;
+        std::cout << "Enter the id of the item \n";
+        cin >> id;
+        item.set_id(id);
+
+        if(items.isActive(items.findPos(id)))
         {
+           /*  item = items; */
             // maybe we should show informations of the item i.e. quantity & unit price
+            Item* itemInHash = &items.objects[items.findPos(id)];
             int quantity =0;
-            cout << "Enter the quantity you want to buy \n";
-            do
-            {
+            std::cout << "Enter the quantity you want to buy \n";
+            std::cout << "The quantity in the store is\t" << itemInHash->get_quantity() << endl
+                 << "The unit price \t" << itemInHash->get_Unit_price() <<endl;
+
+// fix this while loop in case the user enters a string
+            do {
                 cin >> quantity;
-            }while (quantity <= 0);
-            if(item.get_quantity()>=quantity)
+            }while(quantity < 0);
+
+            if(itemInHash->get_quantity()>=quantity)
             {
-                myFile << name << "," << quantity << "," << item.get_Unit_price() << "," << quantity*item.get_Unit_price() << "\n";
-                totalPrice += quantity * item.get_Unit_price();
-                item.set_Quantity(item.get_quantity()-quantity);
-                if (item.get_quantity()==0)
+                myFile << itemInHash->get_name() << "," << quantity << "," << itemInHash->get_Unit_price() << "," << quantity*itemInHash->get_Unit_price() << "\n";
+
+                totalPrice += quantity * itemInHash->get_Unit_price();
+                itemInHash->set_Quantity(itemInHash->get_quantity()-quantity);
+
+/*                 if(itemInHash->get_quantity() == 0)
                 {
-                    Item::Items.remove(item);
-                }
+                    std::cout << "Item is no longer available in the store \n";
+                    
+                } */
             }
             else 
             {
-                cout << "The quantity the store has is less than your command \n";
+                std::cout << "The quantity the store has is less than your command \n";
             }
         }
         else 
         {
-            cout << "Item is not founded \n";
+            std::cout << "Item is not founded \n";
         }
-        cout << "ENTER Y: ADD NEW ITEM\n"
+        std::cout << "\nThe total price is :\t" << totalPrice << endl
+             << "\nENTER Y: ADD NEW ITEM\n"
              << "      N: FINISH COMMAND\n";
-        do 
+
+        do
         {
             cin.get(check);
-        }while(check != 'n' && check != 'y' && check != 'N' && check != 'Y');
+        } while (check != 'n'&& check != 'N'&& check != 'y' && check != 'Y');
+        
+
         if (!islower(check))
         {
+            cin >> ws;
             check = tolower(check);
         }
         // case if the total price is higher than what the card contains : cannot be treated because we don't have the card's system and any additional data
     }
+    if(totalPrice >= 100000)
+    {
+        bool entered = this->addMember(members, totalPrice);
+        std::cout << "is he entered ?\t" << entered << endl;
+    }
     myFile << totalPrice << "\n";
     myFile.close();
-    cout << "Command finsihed successfully\n"
-         << "The command will be sent to your Home address\n";
+    std::cout << "Command finsihed successfully\n"
+         << "\nThe total price is :\t" << totalPrice << endl
+         << "\nThe command will be sent to your Home address\n";
     return totalPrice;
     // confirm command and dispaly it
 }
 
 
-bool User::addMember(int totalprice)
+
+
+bool User::addMember(HashTable<long long int>& members, int totalprice)
 {
     if(totalprice >= 100000)
     {
-        return Members.insert(*this);
+        return members.insert(this->cardId);
     }
     return false;
 }

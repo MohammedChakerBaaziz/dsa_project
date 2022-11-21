@@ -1,47 +1,33 @@
-#ifndef User_h
-#define User_h
+#pragma once
 
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <queue>
-#include "QuadraticProbingUser.h"
+#include "ItemsHash.h"
 #include "item.h"
+#include "MembersHash.h"
 using namespace std;
 
+template <class T>
+class HashTableItems;
 
 class User {
     private :
         string Name;
-        string cardId;
-        int experyMonth;
+        long long int cardId;
+        string experyMonth;
         int experyYear;
         string homeAdress;
     public :
-        explicit User(string name, string cardId, int month, int year, string adress) : Name(name), cardId(cardId), homeAdress(adress)
-        {
-            while (month <=0 || month > 12)
-            {
-                cout << "Month entered is invalid, re-enter a correct month \n";
-                cin >> this->experyMonth;
-            }
-            while(experyYear < 2022)
-            {
-                cout << "The expery year is incorrect or the card is dead, enter a correct or a valid year \n";
-                cin >> this->experyYear;
-            }
-        }
-        bool ismember() const;
-        int command(HashTable<Item>&);
-        bool addMember(int);   
-        friend class HashTable;
-        static HashTable<User> Members;
+        User (string name, long long int id, string month, int year, string adress) : Name(name), cardId(id), experyMonth(month), experyYear(year), homeAdress(adress) {cout <<"user \t" << this->Name << "\t" << this->cardId << "  is added \n";}
+        bool ismember(HashTable<long long int>&) const;
+        int command(HashTableItems<long long int>&, HashTable<long long int>&);
+        bool addMember(HashTable<long long int>&,int);
+        friend void commandFile(HashTableItems<long long int>&,HashTable<long long int>&);
 };
-
 /* class Member
 {
     public : 
         HashTable<User>* membersTable = new HashTable<User>();
 }; */
-
-#endif
