@@ -7,28 +7,29 @@
 using namespace std;
 
 
-class Item{
-    private :
-        string Name;
-        string Id;
-        int UnitPrice;
-        int Quantity;
+class Item
+{
+private :
+    string Name;
+    string Id;
+    int UnitPrice;
+    int Quantity;
 
-    public:
-        Item();
-        Item(string & ,string &  ,int &,int &);        //copy constructure
-        Item(string&&,string&&,int&&,int&&);    //move constructure
-        ~Item();                                //destructure
-        string get_name();
-        string get_id();
-        int get_Unit_price();
-        int get_quantity();
-        void set_name(string );
-        void set_id(string);
-        void set_unit_price(int);
-        void set_Quantity(int);
-        void set_all(string,string,int,int);
-        friend class Binarysearchtree;
+public:
+    Item();
+    Item(string &,string &,int &,int &);           //copy constructure
+    Item(string&&,string&&,int&&,int&&);    //move constructure
+    ~Item();                                //destructure
+    string get_name();
+    string get_id();
+    int get_Unit_price();
+    int get_quantity();
+    void set_name(string );
+    void set_id(string);
+    void set_unit_price(int);
+    void set_Quantity(int);
+    void set_all(string,string,int,int);
+    friend class Binarysearchtree;
 };
 
 
